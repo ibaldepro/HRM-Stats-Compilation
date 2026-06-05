@@ -1,0 +1,80 @@
+{
+  "name": "hrm-stats",
+  "version": "1.0.0",
+  "description": "Système de gestion des statistiques - Hôpital Régional de Mamou",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "set CSC_IDENTITY_AUTO_DISCOVERY=false && electron-builder --win --x64",
+    "test": "node tests/run-tests.js"
+  },
+  "build": {
+    "appId": "com.hrm.stats",
+    "productName": "HRM Stats",
+    "copyright": "Développé par Dr IBALDE — Hôpital Régional de Mamou",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker",
+      "signingHashAlgorithms": [],
+      "sign": null,
+      "certificateFile": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HRM Stats",
+      "installerLanguages": [
+        "fr"
+      ],
+      "language": "1036"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "excel-export.js",
+      "package.json",
+      "src/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      "!node_modules/.cache/**/*",
+      "!**/*.map",
+      "!tests/**/*",
+      "!.git/**/*"
+    ],
+    "asar": false,
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "ibaldepro",
+        "repo": "HRM-Stats-Compilation",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "dependencies": {
+    "better-sqlite3": "^9.4.3",
+    "chart.js": "^4.4.2",
+    "electron-store": "^8.1.0",
+    "electron-updater": "^6.8.3",
+    "exceljs": "^4.4.0"
+  },
+  "devDependencies": {
+    "electron": "^29.1.4",
+    "electron-builder": "^24.13.3"
+  },
+  "author": "Dr IBALDE — HRM Mamou",
+  "license": "MIT"
+}
