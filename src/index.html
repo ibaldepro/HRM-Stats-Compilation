@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' file:; script-src 'self' 'unsafe-inline' 'unsafe-eval' file:;">
+  <title>HRM Stats – Hôpital Régional de Mamou</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <div id="sidebar-logo-wrap">
+        <!-- Filled by app.js: img si logo chargé, sinon emoji -->
+        <div class="logo-icon" id="logo-fallback">🏥</div>
+        <img id="logo-img" alt="Logo" style="display:none;width:48px;height:48px;object-fit:contain;border-radius:10px;background:#fff">
+      </div>
+      <div class="logo-title">HRM Stats</div>
+      <div class="logo-sub">Hôpital Régional de Mamou</div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Principal</div>
+      <button class="nav-item active" data-page="dashboard">
+        <span class="nav-icon">📊</span> Tableau de bord
+      </button>
+      <button class="nav-item" data-page="saisie">
+        <span class="nav-icon">✏️</span> Saisie mensuelle
+      </button>
+
+      <div class="nav-section-title" style="margin-top:16px">Rapports</div>
+      <button class="nav-item" data-page="rapport-annuel">
+        <span class="nav-icon">📋</span> Rapport annuel
+      </button>
+      <button class="nav-item" data-page="historique">
+        <span class="nav-icon">🗂️</span> Historique
+      </button>
+      <button class="nav-item" data-page="analyse">
+        <span class="nav-icon">📈</span> Analyse & Filtres
+      </button>
+
+      <div class="nav-section-title" style="margin-top:16px">Système</div>
+      <button class="nav-item" data-page="parametres">
+        <span class="nav-icon">⚙️</span> Paramètres
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      v1.0.0 · <span id="footer-year"></span><br>
+      Données stockées localement<br>
+      <span style="font-size:10.5px;opacity:.7;margin-top:4px;display:block">
+        Développé par <strong style="color:#94a3b8">Dr IBALDE</strong><br>
+        <a href="mailto:ibaldepro@gmail.com" style="color:#60a5fa;text-decoration:none">ibaldepro@gmail.com</a>
+      </span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">Tableau de bord</div>
+        <div class="topbar-subtitle" id="topbar-subtitle">Vue d'ensemble des statistiques hospitalières</div>
+      </div>
+      <div class="flex gap-2 items-center" id="topbar-actions"></div>
+    </header>
+    <main class="page-content" id="page-content">
+      <div class="loading-wrap"><div class="spinner"></div><span>Chargement…</span></div>
+    </main>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+<div id="modal-root"></div>
+
+<!-- Chart.js copied to vendor/ on first launch by main.js -->
+<script src="vendor/chart.umd.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script src="saisie.js"></script>
+<script src="dashboard.js"></script>
+<script src="rapports.js"></script>
+<script src="analyse.js"></script>
+<script src="historique.js"></script>
+<script src="parametres.js"></script>
+
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
