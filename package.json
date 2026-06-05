@@ -1,6 +1,6 @@
 {
   "name": "hrm-stats",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Système de gestion des statistiques - Hôpital Régional de Mamou",
   "main": "main.js",
   "scripts": {
