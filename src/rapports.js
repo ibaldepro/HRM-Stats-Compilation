@@ -10,6 +10,7 @@ async function renderRapportAnnuel() {
         ${yearSel}
         <button class="btn btn-primary" id="btn-load-rapport">📂 Charger</button>
         <button class="btn btn-secondary" id="btn-export-csv">⬇️ Export CSV</button>
+        <button class="btn btn-secondary" id="btn-print-rapport">🖨️ Imprimer PDF</button>
       </div>
     </div>
 
@@ -25,6 +26,7 @@ async function renderRapportAnnuel() {
   document.getElementById('year-select').addEventListener('change', e => AppState.currentYear = parseInt(e.target.value));
   document.getElementById('btn-load-rapport').addEventListener('click', loadRapportAnnuel);
   document.getElementById('btn-export-csv').addEventListener('click', exportCsv);
+  document.getElementById('btn-print-rapport').addEventListener('click', () => window.print());
 
   await loadRapportAnnuel();
 }
@@ -117,20 +119,35 @@ function renderRapportTable(computedData, title, container) {
 
   for (const groupe of INDICATEURS_GROUPES) {
     html += `<tr class="group-row"><td colspan="${SERVICES.length + 2}">${groupe.icon} ${groupe.label}</td></tr>`;
-    for (const item of groupe.items) {
-      const isCalc = !item.editable;
-      let rowTotal = 0;
-      const cells = SERVICES.map(srv => {
-        const val = computedData[srv.id]?.[item.id] ?? 0;
-        rowTotal += parseFloat(val) || 0;
-        return `<td>${formatValue(val, item.type)}</td>`;
-      }).join('');
 
-      html += `<tr class="${item.bold ? 'total-row' : ''} ${isCalc ? 'calc-row' : ''}">
-        <td>${item.label}</td>
-        ${cells}
-        <td style="font-weight:700;background:#dbeafe;color:#1e40af">${formatValue(rowTotal, item.type)}</td>
-      </tr>`;
+    if (groupe.global) {
+      // Section globale (médico-techniques) : données sous __GLOBAL__, pas par service
+      const gData = computedData['__GLOBAL__'] || {};
+      for (const item of groupe.items) {
+        const isCalc = !item.editable;
+        const val = isCalc && item.calc ? item.calc(gData) : (gData[item.id] ?? 0);
+        html += `<tr class="${item.bold ? 'total-row' : ''} ${isCalc ? 'calc-row' : ''}">
+          <td>${item.label}</td>
+          <td colspan="${SERVICES.length}" style="text-align:center;color:var(--text-muted);font-size:12px;font-style:italic">— indicateur global —</td>
+          <td style="font-weight:${item.bold ? '700' : '400'};background:#dbeafe;color:#1e40af">${formatValue(val, item.type)}</td>
+        </tr>`;
+      }
+    } else {
+      for (const item of groupe.items) {
+        const isCalc = !item.editable;
+        let rowTotal = 0;
+        const cells = SERVICES.map(srv => {
+          const val = computedData[srv.id]?.[item.id] ?? 0;
+          rowTotal += parseFloat(val) || 0;
+          return `<td>${formatValue(val, item.type)}</td>`;
+        }).join('');
+
+        html += `<tr class="${item.bold ? 'total-row' : ''} ${isCalc ? 'calc-row' : ''}">
+          <td>${item.label}</td>
+          ${cells}
+          <td style="font-weight:700;background:#dbeafe;color:#1e40af">${formatValue(rowTotal, item.type)}</td>
+        </tr>`;
+      }
     }
   }
 

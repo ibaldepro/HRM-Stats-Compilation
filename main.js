@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, Menu } = require('electron');
 const path = require('path');
 const fs   = require('fs');
 
@@ -384,6 +384,9 @@ function setupIpcHandlers() {
 
 // ── App lifecycle ─────────────────────────────────────────────────────────────
 app.whenReady().then(() => {
+  // Supprimer le menu natif (File, Edit, View, Window, Help)
+  Menu.setApplicationMenu(null);
+
   // Copy Chart.js UMD before anything else (synchronous, safe)
   try {
     const chartSrc  = path.join(__dirname, 'node_modules', 'chart.js', 'dist', 'chart.umd.js');

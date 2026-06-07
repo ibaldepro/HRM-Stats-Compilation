@@ -621,3 +621,47 @@ label .label-edit-input { display: inline; }
 .check-item input { accent-color: var(--primary); width: 14px; height: 14px; }
 .check-item.checked { border-color: var(--primary); background: #dbeafe; }
 .check-item label { font-size: 12.5px; cursor: pointer; }
+
+/* ── Impression / Export PDF ─────────────────────────────────────────────── */
+@media print {
+  /* Masquer tout sauf le contenu du rapport */
+  .sidebar,
+  #update-banner,
+  .page-title,
+  .flex.justify-between.items-center,
+  .tabs,
+  #rapport-tabs-wrap { display: none !important; }
+
+  /* Étendre le contenu sur toute la largeur */
+  #app { display: block !important; }
+  .main-content { margin: 0 !important; padding: 0 !important; }
+  #page-content { overflow: visible !important; padding: 10px !important; }
+
+  /* Titre du rapport visible à l'impression */
+  .card-title { font-size: 14pt; font-weight: 700; margin-bottom: 8px; }
+  .card-header { padding: 10px 12px !important; }
+
+  /* Table sans scroll, pleine page */
+  .report-table-wrap {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+  .report-table {
+    width: 100% !important;
+    font-size: 8pt !important;
+    border-collapse: collapse !important;
+  }
+  .report-table th,
+  .report-table td {
+    border: 0.5pt solid #999 !important;
+    padding: 3px 4px !important;
+  }
+  .report-table .group-row td { background: #1e40af !important; color: #fff !important; }
+  .report-table .total-row td { background: #dbeafe !important; font-weight: 700 !important; }
+
+  /* Sauts de page automatiques */
+  .card { page-break-inside: avoid; }
+
+  /* Couleurs d'arrière-plan préservées */
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}

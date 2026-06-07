@@ -116,13 +116,19 @@ const INDICATEURS_GROUPES = [
       { id: 'cap',                label: 'C AP — Consultation Autres Préfectures',editable: true,  type: 'int' },
       { id: 'total_c',            label: 'Total C',                               editable: false, type: 'int', bold: true,
         calc: (s) => (s['cu']||0) + (s['csp']||0) + (s['cap']||0) },
-      { id: 'ordonnance_interne', label: 'Ordonnances Internes',  editable: true, type: 'int' },
-      { id: 'ordonnance_externe', label: 'Ordonnances Externes',  editable: true, type: 'int' },
-      { id: 'examens_internes',   label: 'Examens Internes',      editable: true, type: 'int' },
-      { id: 'examens_externes',   label: 'Examens Externes',      editable: true, type: 'int' },
-      { id: 'radio',              label: 'Radiographies',         editable: true, type: 'int' },
-      { id: 'echo',               label: 'Échographies',          editable: true, type: 'int' },
-      { id: 'ecg',                label: 'ECG',                   editable: true, type: 'int' },
+      { id: 'ordonnance_interne', label: 'Ordonnances Internes',  editable: true,  type: 'int' },
+      { id: 'ordonnance_externe', label: 'Ordonnances Externes',  editable: true,  type: 'int' },
+      { id: 'total_ordonnances',  label: 'Total Ordonnances',     editable: false, type: 'int', bold: true,
+        calc: (s) => (s['ordonnance_interne']||0) + (s['ordonnance_externe']||0) },
+      { id: 'examens_internes',   label: 'Examens Internes',      editable: true,  type: 'int' },
+      { id: 'examens_externes',   label: 'Examens Externes',      editable: true,  type: 'int' },
+      { id: 'total_examens',      label: 'Total Examens',         editable: false, type: 'int', bold: true,
+        calc: (s) => (s['examens_internes']||0) + (s['examens_externes']||0) },
+      { id: 'radio',              label: 'Radiographies',         editable: true,  type: 'int' },
+      { id: 'echo',               label: 'Échographies',          editable: true,  type: 'int' },
+      { id: 'ecg',                label: 'ECG',                   editable: true,  type: 'int' },
+      { id: 'total_imagerie',     label: 'Total Imagerie',        editable: false, type: 'int', bold: true,
+        calc: (s) => (s['radio']||0) + (s['echo']||0) + (s['ecg']||0) },
     ]
   }
 ];
@@ -164,6 +170,9 @@ const KPI_INDICATEURS = [
   { id: 'deces',             label: 'Décès',                icon: '📋', color: '#ef4444', format: 'int' },
   { id: 'accouchement',      label: 'Accouchements',        icon: '🤱', color: '#ec4899', format: 'int' },
   { id: 'naissance_vivante', label: 'Naissances Vivantes',  icon: '👶', color: '#f59e0b', format: 'int' },
+  { id: 'total_ordonnances', label: 'Total Ordonnances',    icon: '📋', color: '#8b5cf6', format: 'int' },
+  { id: 'total_examens',     label: 'Total Examens',        icon: '🔬', color: '#06b6d4', format: 'int' },
+  { id: 'total_imagerie',    label: 'Total Imagerie',       icon: '📡', color: '#f97316', format: 'int' },
 ];
 
 // Badges de détail — ligne compacte sous les KPI principaux
