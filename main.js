@@ -7,8 +7,8 @@ let autoUpdater = null;
 if (app.isPackaged) {
   try {
     autoUpdater = require('electron-updater').autoUpdater;
-    autoUpdater.autoDownload    = false; // user confirms before download
-    autoUpdater.autoInstallOnAppQuit = true;
+    autoUpdater.autoDownload         = true;  // téléchargement automatique en arrière-plan
+    autoUpdater.autoInstallOnAppQuit = true;  // installation à la prochaine fermeture
     autoUpdater.logger = null;           // no console spam
   } catch(_) { autoUpdater = null; }
 }

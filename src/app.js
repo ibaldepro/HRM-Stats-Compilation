@@ -236,31 +236,28 @@ async function loadLogo() {
 
 // ── Auto-update banner ────────────────────────────────────────────────────────
 function showUpdateBanner(version) {
+  // Le téléchargement est automatique — on affiche juste une info discrète
   if (document.getElementById('update-banner')) return;
   const b = document.createElement('div');
   b.id = 'update-banner';
   b.innerHTML = `
-    <div>🚀 <strong>Mise à jour disponible</strong> — version ${version} prête à télécharger</div>
+    <div>⬇️ <strong>Mise à jour v${version}</strong> — téléchargement en arrière-plan…</div>
     <div class="upd-btns">
-      <button class="btn btn-sm" style="background:#fff;color:#065f46" id="btn-upd-dl">⬇️ Télécharger</button>
+      <div id="upd-prog" style="font-weight:700;color:#fff">0%</div>
       <button class="btn btn-sm" style="background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff" id="btn-upd-dismiss">✕</button>
     </div>`;
   document.body.prepend(b);
-  b.querySelector('#btn-upd-dl').addEventListener('click', async () => {
-    b.innerHTML = `<div>⏳ Téléchargement en cours…</div><div id="upd-prog" style="font-weight:700">0%</div>`;
-    await window.hrm.updateDownload();
-  });
   b.querySelector('#btn-upd-dismiss').addEventListener('click', () => b.remove());
 }
 
 function showUpdateReadyBanner() {
   const b = document.getElementById('update-banner') || (() => {
-    const el = document.createElement('div'); el.id='update-banner'; document.body.prepend(el); return el;
+    const el = document.createElement('div'); el.id = 'update-banner'; document.body.prepend(el); return el;
   })();
   b.innerHTML = `
-    <div>✅ <strong>Mise à jour téléchargée</strong> — redémarrez pour installer la nouvelle version</div>
+    <div>✅ <strong>Mise à jour prête</strong> — s'installera automatiquement à la prochaine fermeture</div>
     <div class="upd-btns">
-      <button class="btn btn-sm" style="background:#fff;color:#065f46" id="btn-upd-restart">🔄 Redémarrer et installer</button>
+      <button class="btn btn-sm" style="background:#fff;color:#065f46" id="btn-upd-restart">🔄 Redémarrer maintenant</button>
       <button class="btn btn-sm" style="background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff" id="btn-upd-later">Plus tard</button>
     </div>`;
   b.querySelector('#btn-upd-restart').addEventListener('click', () => window.hrm.updateInstall());
