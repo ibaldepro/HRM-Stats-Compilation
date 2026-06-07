@@ -176,8 +176,11 @@ const KPI_INDICATEURS = [
 ];
 
 // Badges de détail — ligne compacte sous les KPI principaux
+// section: 'services'   → données cumulées des services par patient
+// section: 'medico'     → données globales médico-techniques
 const KPI_DETAIL_BADGES = [
   {
+    section: 'services',
     groupe: 'Détail Consultations', icon: '👥', color: '#3b82f6',
     items: [
       { id: '1er_contacts', label: '1ers Contacts',   color: '#3b82f6' },
@@ -185,11 +188,47 @@ const KPI_DETAIL_BADGES = [
     ]
   },
   {
+    section: 'services',
     groupe: 'Détail Hospitalisations', icon: '🛏️', color: '#10b981',
     items: [
       { id: 'h_simple',     label: 'H. Simple',            color: '#10b981' },
       { id: 'h_avec_inter', label: 'H. avec Intervention', color: '#34d399' },
       { id: 'cesarienne',   label: 'Césariennes',          color: '#ec4899' },
+    ]
+  },
+  // ── Médico-techniques (données globales __GLOBAL__) ──────────────────────
+  {
+    section: 'medico',
+    groupe: 'Consultations Médico', icon: '📊', color: '#6366f1',
+    items: [
+      { id: 'cu',  label: 'C.U.',   color: '#6366f1' },
+      { id: 'csp', label: 'C.S.P.', color: '#818cf8' },
+      { id: 'cap', label: 'C.A.P.', color: '#a5b4fc' },
+    ]
+  },
+  {
+    section: 'medico',
+    groupe: 'Ordonnances', icon: '📋', color: '#8b5cf6',
+    items: [
+      { id: 'ordonnance_interne', label: 'Internes', color: '#8b5cf6' },
+      { id: 'ordonnance_externe', label: 'Externes', color: '#a78bfa' },
+    ]
+  },
+  {
+    section: 'medico',
+    groupe: 'Examens', icon: '🔬', color: '#0891b2',
+    items: [
+      { id: 'examens_internes', label: 'Internes', color: '#0891b2' },
+      { id: 'examens_externes', label: 'Externes', color: '#22d3ee' },
+    ]
+  },
+  {
+    section: 'medico',
+    groupe: 'Imagerie', icon: '📡', color: '#f97316',
+    items: [
+      { id: 'radio', label: 'Radiographies', color: '#f97316' },
+      { id: 'echo',  label: 'Échographies',  color: '#fb923c' },
+      { id: 'ecg',   label: 'ECG',           color: '#fbbf24' },
     ]
   },
 ];

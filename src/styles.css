@@ -528,6 +528,29 @@ select.form-control { cursor: pointer; padding-right: 28px; appearance: none;
   font-weight: 700;
 }
 
+/* ── Detail section separator ────────────────────────────────────────────── */
+.detail-section-sep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+.detail-section-sep::before,
+.detail-section-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.detail-section-sep-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  white-space: nowrap;
+}
+
 /* ── Update banner ─────────────────────────────────────────────────────────── */
 #update-banner {
   position: fixed;

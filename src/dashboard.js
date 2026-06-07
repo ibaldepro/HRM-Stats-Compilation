@@ -105,22 +105,33 @@ async function loadDashboardData() {
     </div>`;
   }).join('');
 
-  // Badges de détail (1ers contacts, c. ultérieurs, h. simple, h. avec interv., césariennes)
+  // Badges de détail : services puis médico-techniques avec séparateur de section
   const detailEl = document.getElementById('dash-detail-badges');
   if (detailEl) {
-    detailEl.innerHTML = KPI_DETAIL_BADGES.map(grp => `
-      <div class="detail-badge-group">
-        <span class="detail-badge-group-label" style="color:${grp.color}">${grp.icon} ${grp.groupe}</span>
-        <div class="detail-badge-list">
-          ${grp.items.map(item => {
-            const val = totaux[item.id] || 0;
-            return `<div class="detail-badge" style="border-color:${item.color}20;background:${item.color}08">
-              <span class="detail-badge-label">${item.label}</span>
-              <span class="detail-badge-val" style="color:${item.color}">${val.toLocaleString('fr-FR')}</span>
-            </div>`;
-          }).join('')}
-        </div>
-      </div>`).join('');
+    let badgeHtml = '';
+    let medicoHeaderShown = false;
+
+    for (const grp of KPI_DETAIL_BADGES) {
+      // Séparateur visuel avant la première section médico-technique
+      if (grp.section === 'medico' && !medicoHeaderShown) {
+        medicoHeaderShown = true;
+        badgeHtml += `<div class="detail-section-sep"><span class="detail-section-sep-label">🔬 Activités Médico-techniques</span></div>`;
+      }
+      badgeHtml += `
+        <div class="detail-badge-group">
+          <span class="detail-badge-group-label" style="color:${grp.color}">${grp.icon} ${grp.groupe}</span>
+          <div class="detail-badge-list">
+            ${grp.items.map(item => {
+              const val = totaux[item.id] || 0;
+              return `<div class="detail-badge" style="border-color:${item.color}20;background:${item.color}08">
+                <span class="detail-badge-label">${item.label}</span>
+                <span class="detail-badge-val" style="color:${item.color}">${val.toLocaleString('fr-FR')}</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>`;
+    }
+    detailEl.innerHTML = badgeHtml;
   }
 
   // ── Charts ──────────────────────────────────────────────────────────────────
