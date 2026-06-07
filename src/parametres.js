@@ -516,10 +516,24 @@ async function renderParamsExport(el) {
     const btn   = el.querySelector('#btn-export-excel');
     btn.disabled = true;
     btn.textContent = '⏳ Génération…';
+    // Sérialiser sans les fonctions calc (non transférables via IPC)
+    const serializableGroups = getEffectiveGroupes().map(g => ({
+      id: g.id, label: g.label, icon: g.icon, color: g.color, global: !!g.global,
+      items: g.items.map(it => ({
+        id: it.id,
+        label: getLabelForIndicateur(it),
+        type: it.type || 'int',
+        editable: !!it.editable,
+        bold: !!it.bold,
+      }))
+    }));
+    const serializableServices = getServices().map(s => ({
+      id: s.id, label: getLabelForService(s), color: s.color, icon: s.icon
+    }));
     const result = await window.hrm.exportExcel({
       annee,
-      services:           getServices(),
-      indicateursGroupes: getEffectiveGroupes(),
+      services:           serializableServices,
+      indicateursGroupes: serializableGroups,
     });
     btn.disabled = false;
     btn.textContent = '📊 Exporter en Excel (.xlsx)';
