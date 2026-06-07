@@ -128,7 +128,7 @@ function renderRapportTable(computedData, title, container) {
         const val = isCalc && item.calc ? item.calc(gData) : (gData[item.id] ?? 0);
         html += `<tr class="${item.bold ? 'total-row' : ''} ${isCalc ? 'calc-row' : ''}">
           <td>${item.label}</td>
-          <td colspan="${SERVICES.length}" style="text-align:center;color:var(--text-muted);font-size:12px;font-style:italic">— indicateur global —</td>
+          ${SERVICES.map(() => `<td class="cell-na">—</td>`).join('')}
           <td style="font-weight:${item.bold ? '700' : '400'};background:#dbeafe;color:#1e40af">${formatValue(val, item.type)}</td>
         </tr>`;
       }
