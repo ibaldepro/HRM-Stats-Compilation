@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 chcp 65001 > nul
 title HRM Stats - Compilation .exe
 color 0A
@@ -42,7 +42,7 @@ node -e "
   else{console.log('  AVERTISSEMENT: Impossible de localiser le point de patch.');}
 "
 
-:: Préparer chart.js dans src/vendor/
+:: PrÃ©parer chart.js dans src/vendor/
 echo  [3/4] Preparation des ressources...
 if not exist "src\vendor" mkdir "src\vendor"
 if not exist "src\vendor\chart.umd.js" (
@@ -76,7 +76,7 @@ echo  ============================================================
 echo   Succes !
 echo  ============================================================
 echo.
-echo  Installateur : dist\HRM Stats Setup 1.0.0.exe  (^~79 MB)
+echo  Installateur : dist\HRM Stats Setup 1.2.0.exe  (^~80 MB))
 echo.
 echo  Copiez ce fichier sur n'importe quel PC Windows 10/11
 echo  et double-cliquez pour installer sans avoir besoin de Node.js.
