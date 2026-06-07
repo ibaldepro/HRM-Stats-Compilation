@@ -52,6 +52,7 @@
       "!tests/**/*",
       "!.git/**/*"
     ],
+    "artifactName": "HRM-Stats-Setup-${version}.${ext}",
     "asar": false,
     "npmRebuild": false,
     "buildDependenciesFromSource": false,
